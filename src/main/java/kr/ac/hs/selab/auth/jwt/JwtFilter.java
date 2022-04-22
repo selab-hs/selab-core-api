@@ -2,7 +2,6 @@ package kr.ac.hs.selab.auth.jwt;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
@@ -40,12 +39,7 @@ public class JwtFilter implements Filter {
             "/favicon.ico"
     );
 
-    private final static String HEALTH = "/health";
-
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-
-    public static final String BEARER_TOKEN = "Bearer ";
-    private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
+    private static final String HEALTH = "/health";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -58,19 +52,27 @@ public class JwtFilter implements Filter {
         log.info("[INFO] servlet request path {}", path);
 
         if (isChecking(path)) {
-            var bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
-            if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
-                var jwt = bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
-                if (tokenProvider.validateToken(jwt)) {
-                    var authentication = tokenProvider.getAuthentication(jwt);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+            var bearerToken = httpServletRequest.getHeader("Authorization");
+
+            if (isToken(bearerToken)) {
+
+                var jwtToken = bearerToken.substring(7);
+
+                var isJwtToken = tokenProvider.create().validateToken(jwtToken);
+
+                if (isJwtToken) {
+                    tokenProvider.getAuthentication(jwtToken).setAuthentication();
                 }
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private boolean isChecking(String path) {
+    private boolean isToken(final String bearerToken) {
+        return StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ");
+    }
+
+    private boolean isChecking(final String path) {
         return !EXCLUDE_URL.contains(path) && !SWAGGER_EXCLUDE_URL.contains(path) && !HEALTH.equals(path);
     }
 }

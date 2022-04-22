@@ -4,8 +4,6 @@ import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
 import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
 import kr.ac.hs.selab.auth.jwt.JwtTokenProvider;
-import kr.ac.hs.selab.common.config.CorsConfig;
-import kr.ac.hs.selab.common.config.SwaggerConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/members/sign").permitAll()
                 .antMatchers("/api/v1/members/exist").permitAll()
                 .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/api/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .anyRequest().authenticated()
 
                 .and()
