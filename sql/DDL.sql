@@ -1,1 +1,1 @@
-CREATE DATABASE selab_community CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE selab CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
