@@ -42,12 +42,10 @@ allOpen {
 }
 
 object DependencyVersion {
-    const val KOTLIN_LOGGING_VERSION = "3.0.0"
-    const val SWAGGER_VERSION = "2.10.5"
-    const val JWT_VERSION = "4.1.0"
-    const val SHEDLOCK_VERSION = "4.24.0"
-    const val AWS_S3_SDK_VERSION = "1.12.351"
-    const val LOGBACK_ENCODER = "7.2"
+    const val KOTLIN_LOGGING_VERSION = "3.0.5"
+    const val SWAGGER_VERSION = "3.0.0"
+    const val JWT_VERSION = "4.3.0"
+    const val LOGBACK_ENCODER = "7.3"
 }
 
 dependencies {
@@ -61,6 +59,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    /** jwt */
+    implementation("com.auth0:java-jwt:${DependencyVersion.JWT_VERSION}")
 
     /** swagger */
     implementation("io.springfox:springfox-swagger2:${DependencyVersion.SWAGGER_VERSION}")
