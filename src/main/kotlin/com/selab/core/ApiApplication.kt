@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment
 import java.util.*
 
 @SpringBootApplication
-class SelabCoreApiApplication(
+class ApiApplication(
     private val environment: Environment
 ) : ApplicationListener<ApplicationReadyEvent> {
     private val logger = KotlinLogging.logger { }
@@ -22,7 +22,7 @@ class SelabCoreApiApplication(
 
 fun main(args: Array<String>) {
     init()
-    runApplication<SelabCoreApiApplication>(*args)
+    runApplication<ApiApplication>(*args)
 }
 
 fun init() {

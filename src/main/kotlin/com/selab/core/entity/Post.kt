@@ -14,6 +14,9 @@ class Post(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = -1,
 
+    @Column(name = "board_id")
+    val boardId: Long,
+
     val title: String,
 
     @Column(columnDefinition = "MEDIUMTEXT")
