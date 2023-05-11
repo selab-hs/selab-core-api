@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment
 import java.util.*
 
 @SpringBootApplication
-class ApiApplication(
+class Application(
     private val environment: Environment
 ) : ApplicationListener<ApplicationReadyEvent> {
     private val logger = KotlinLogging.logger { }
@@ -22,7 +22,7 @@ class ApiApplication(
 
 fun main(args: Array<String>) {
     init()
-    runApplication<ApiApplication>(*args)
+    runApplication<Application>(*args)
 }
 
 fun init() {
